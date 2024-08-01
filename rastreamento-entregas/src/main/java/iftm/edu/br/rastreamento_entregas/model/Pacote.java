@@ -1,28 +1,65 @@
-package main.java.iftm.edu.br.rastreamento_entregas.model;
+package iftm.edu.br.rastreamento_entregas.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Pacote {
 
-    private String id;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String idPacote;
     private String destinatario;
-    private Endereco endereco;
-    private String status;
-    private List<Rastreamento> rastreamentos;
 
-    public Pacote(String id, String destinatario, Endereco endereco, String status) {
-        this.id = id;
+    @ManyToOne
+    private Endereco endereco;
+
+    private String status;
+
+    @OneToMany(mappedBy = "pacote")
+    private List<Rastreamento> rastreamentos = new ArrayList<>();
+
+    public Pacote(String idPacote, String destinatario, Endereco endereco) {
+        this.idPacote = idPacote;
         this.destinatario = destinatario;
         this.endereco = endereco;
         this.status = "pendente";
     }
 
-    private void atualizarStatus(String novoStatus, Date dataHora, String localizacao){
+    public void atualizarStatus(String novoStatus, Date dataHora, String localizacao) {
         this.status = novoStatus;
+        Rastreamento rastreamento = new Rastreamento(dataHora, novoStatus, localizacao, this);
+        rastreamentos.add(rastreamento);
     }
 
-    private String consultarInformacoes(){
-        return "Destinatário: " + destinatario + "\n" + endereco + "\nStatus do pedido: " + status;
+    public String consultarInformacoes() {
+        String enderecoInfo = (endereco != null) ? endereco.getEnderecoCompleto() : "Não disponível";
+        String rastreamentoInfo = "";
+
+        for (Rastreamento rastreamento : rastreamentos) {
+            rastreamentoInfo += rastreamento.getResumo() + "\n";
+        }
+
+        return "ID do Pacote: " + idPacote + "\n" +
+               "Destinatário: " + destinatario + "\n" +
+               "Endereço: " + enderecoInfo + "\n" +
+               "Status do pedido: " + status + "\n" +
+               "Rastreamento Histórico:\n" +
+               rastreamentoInfo;
     }
 }
+
