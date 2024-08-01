@@ -23,6 +23,6 @@ public class Pacote {
     }
 
     private String consultarInformacoes(){
-        return "Destinatário: " + destinatario + "\n" + endereco + "\n" + "Status do pedido: " + status;
+        return "Destinatário: " + destinatario + "\n" + endereco + "\nStatus do pedido: " + status;
     }
 }
