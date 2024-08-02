@@ -1,0 +1,151 @@
+#---------------------------------------------
+# Endpoints para Endereco
+### Consulta todos os endereços
+GET /enderecos HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+###
+
+### Adiciona um novo endereço
+POST /enderecos HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "rua": "Rua das Flores",
+  "numero": "123",
+  "cidade": "Uberlândia",
+  "estado": "Minas Gerais",
+  "cep": "12345-678"
+}
+
+###
+
+### Atualiza um endereço
+PUT /enderecos/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "rua": "Rua das Palmeiras",
+  "numero": "456",
+  "cidade": "Belo Horizonte",
+  "estado": "Minas Gerais",
+  "cep": "87654-321"
+}
+
+###
+
+### Remove um endereço
+DELETE /enderecos/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+
+#---------------------------------------------
+# Endpoints para Pacote
+### Consulta todos os pacotes
+GET /pacotes HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+###
+
+### Adiciona um novo pacote
+POST /pacotes HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "idPacote": "123ABC",
+  "destinatario": "Paulinho",
+  "endereco": {
+    "id": 1
+  },
+  "status": "pendente"
+}
+
+###
+
+### Consulta um pacote específico
+GET /pacotes/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+###
+
+### Atualiza um pacote
+PUT /pacotes/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "idPacote": "123ABC",
+  "destinatario": "Hulk",
+  "endereco": {
+    "id": 1
+  },
+  "status": "em trânsito"
+}
+
+###
+
+### Remove um pacote
+DELETE /pacotes/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+
+#---------------------------------------------
+# Endpoints para Rastreamento
+### Consulta todos os rastreamentos de um pacote específico
+GET /rastreamentos/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+###
+
+### Adiciona um novo rastreamento
+POST /rastreamentos HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "dataHora": "2024-08-01T10:00:00Z",
+  "status": "Saiu para entrega",
+  "localizacao": "Centro de Distribuição",
+  "pacote": {
+    "id": 1
+  }
+}
+
+###
+
+### Consulta um rastreamento específico
+GET /rastreamentos/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+###
+
+### Atualiza um rastreamento
+PUT /rastreamentos/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+  "dataHora": "2024-08-01T12:00:00Z",
+  "status": "em trânsito",
+  "localizacao": "No caminho",
+  "pacote": {
+    "id": 1
+  }
+}
+
+###
+
+### Remove um rastreamento
+DELETE /rastreamentos/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
