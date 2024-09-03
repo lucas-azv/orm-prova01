@@ -1,9 +1,7 @@
 package iftm.edu.br.rastreamento_entregas.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import iftm.edu.br.rastreamento_entregas.model.Endereco;
 import iftm.edu.br.rastreamento_entregas.model.Pacote;
 import iftm.edu.br.rastreamento_entregas.repository.PacoteRepository;
 
@@ -14,8 +12,11 @@ import java.util.Optional;
 @Service
 public class PacoteService {
 
-    @Autowired
-    private PacoteRepository pacoteRepository;
+    private final PacoteRepository pacoteRepository;
+
+    public PacoteService(PacoteRepository pacoteRepository){
+        this.pacoteRepository = pacoteRepository;
+    }
 
     public List<Pacote> buscarTodosPacotes() {
         List<Pacote> lista = new ArrayList<>();
