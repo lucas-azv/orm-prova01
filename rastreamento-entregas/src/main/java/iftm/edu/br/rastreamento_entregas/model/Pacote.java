@@ -48,18 +48,18 @@ public class Pacote {
 
     public String consultarInformacoes() {
         String enderecoInfo = (endereco != null) ? endereco.getEnderecoCompleto() : "Não disponível";
-        String rastreamentoInfo = "";
 
+        StringBuilder rastreamentoInfoBuilder = new StringBuilder();
         for (Rastreamento rastreamento : rastreamentos) {
-            rastreamentoInfo += rastreamento.getResumo() + "\n";
+            rastreamentoInfoBuilder.append(rastreamento.getResumo()).append("\n");
         }
+        String rastreamentoInfo = rastreamentoInfoBuilder.toString();
 
         return "ID do Pacote: " + idPacote + "\n" +
-               "Destinatário: " + destinatario + "\n" +
-               "Endereço: " + enderecoInfo + "\n" +
-               "Status do pedido: " + status + "\n" +
-               "Rastreamento Histórico:\n" +
-               rastreamentoInfo;
+                "Destinatário: " + destinatario + "\n" +
+                "Endereço: " + enderecoInfo + "\n" +
+                "Status do pedido: " + status + "\n" +
+                "Rastreamento Histórico:\n" +
+                rastreamentoInfo;
     }
 }
-
